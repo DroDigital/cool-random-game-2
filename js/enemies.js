@@ -39,7 +39,7 @@ export function spawnEnemy(type, x, z, o = {}) {
   e.group.scale.setScalar(o.elite ? 1.3 : 1);
   e.group.position.set(x, 0, z);
   e.mats = [];
-  e.group.traverse((m) => { if (m.isMesh) { m.castShadow = true; const mm = m.material; if (!mm.userData.e0) { mm.userData.e0 = mm.emissive.clone(); mm.userData.i0 = mm.emissiveIntensity; e.mats.push(mm); } } });
+  e.group.traverse((m) => { if (m.isMesh) { m.castShadow = true; const mm = m.material; if (mm.emissive && !mm.userData.e0) { mm.userData.e0 = mm.emissive.clone(); mm.userData.i0 = mm.emissiveIntensity; e.mats.push(mm); } } });
   scene.add(e.group);
   G.enemies.push(e);
   // spawn rift fx
@@ -253,7 +253,7 @@ export function spawnBoss(kind, x = 0, z = -8) {
     invuln: true, name: BOSS_NAMES[kind],
   };
   e.mats = [];
-  e.group.traverse((mm) => { if (mm.isMesh) { mm.castShadow = true; const q = mm.material; if (!q.userData.e0) { q.userData.e0 = q.emissive.clone(); q.userData.i0 = q.emissiveIntensity; e.mats.push(q); } } });
+  e.group.traverse((mm) => { if (mm.isMesh) { mm.castShadow = true; const q = mm.material; if (q.emissive && !q.userData.e0) { q.userData.e0 = q.emissive.clone(); q.userData.i0 = q.emissiveIntensity; e.mats.push(q); } } });
   e.group.position.set(x, 0, z);
   scene.add(e.group); G.enemies.push(e);
   G.boss = e;
